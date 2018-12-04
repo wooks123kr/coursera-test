@@ -14,10 +14,15 @@ function NarrowItDownController(MenuSearchService){
         console.log("ctrol remove Item: " + index);
         MenuSearchService.removeItem(index);  
     }
-    MenuSearchService.getMatchedMenuItems('tofu').then(function(items){
-        menu.found = items;
-        console.log(menu.found);
-    });
+    //MenuSearchService.getMatchedMenuItems().then(function(items){
+    //    menu.found = items;
+    //    console.log(menu.found);
+    //});
+    menu.search = function(searchTerm){
+        MenuSearchService.getMatchedMenuItems(searchTerm).then(function(items){
+            menu.found = items;
+        });
+    }
 }
 
 MenuSearchService.$inject = ['$http', 'ApiBasePath'];
@@ -25,10 +30,14 @@ function MenuSearchService($http, ApiBasePath){
     var service = this;
     var foundItems = [];
     service.getMatchedMenuItems = function(searchTerm){
+        foundItems.splice(0, foundItems.length);
         return $http.get(ApiBasePath+'/menu_items.json').then(function (result){
+            if (!searchTerm || searchTerm.length == 0){
+                return [];
+            }
             for (var i = 0 ;  i < result.data.menu_items.length; i++){
                 var item = result.data.menu_items[i];
-                if (item.description && item.description.indexOf(searchTerm)){
+                if (item.description && item.description.search(searchTerm) > 0){
                     foundItems.push(item);
                 }
             }

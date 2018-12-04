@@ -1,6 +1,30 @@
-<ul>
-    <li ng-repeat='item in menu.found'>{{item.short_name}} and {{item.description}}
+<div class='container'>
+<table class="table" ng-if='menu.found.length > 0'>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Short name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="item in menu.found">
+        <td>{{$index + 1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.short_name}}</td>
+        <td>{{item.description}}</td>
+        <td>large: {{item.price_large}}, small: {{item.price_small}}</td>
+        <td>
+        <button ng-click="menu.onRemove({index: $index})">Don't want this one!</button>
+        </td>
+    </tr>
+    <!---<li ng-repeat='item in menu.found'>{{item.name}} {{item.short_name}} and {{item.description}}, {{item.price}}
         <button ng-click="menu.onRemove({index: $index})">Don't want this one!</button>
     </li>
+-->
 
 </ul>
+</div>
+<div>
+<p class="error" ng-if="menu.found.length == 0">Nothing Found</p>
+</div>
