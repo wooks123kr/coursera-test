@@ -37,7 +37,7 @@ function MenuSearchService($http, ApiBasePath){
             }
             for (var i = 0 ;  i < result.data.menu_items.length; i++){
                 var item = result.data.menu_items[i];
-                if (item.description && item.description.search(searchTerm) > 0){
+                if (item.description && item.description.search(searchTerm) >= 0){
                     foundItems.push(item);
                 }
             }
