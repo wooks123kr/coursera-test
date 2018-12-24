@@ -1,0 +1,10 @@
+<ul>
+    <li ng-repeat="item in $ctrl.items" 
+         ui-sref="itemList.itemDetail({itemId: $index})"> 
+         <ul> 
+            <li>Name:  {{item.name}} -  {{item.description }}  </li>
+            <li>Price: {{item.price}}  </li>
+        </ul>
+    </li>
+    <br />
+</ul>
